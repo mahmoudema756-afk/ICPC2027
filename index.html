@@ -217,38 +217,50 @@
     <div class="ambient-blob blob-2"></div>
 
     <!-- TOP ANNOUNCEMENT & APP BAR -->
-    <header class="sticky top-0 z-40 w-full glass-panel border-b border-icpc-border/80 px-4 lg:px-8 py-3">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-icpc-border/80 px-3 sm:px-4 lg:px-8 py-2.5 transition-all duration-300 ease-out transform-gpu">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             
             <!-- Brand Quick Switch -->
-            <div class="flex items-center space-x-3">
-                <div class="logo-ring w-10 h-10 rounded-full flex items-center justify-center bg-icpc-surface overflow-hidden">
-                    <img src="./logo.png" alt="ICPC27 Logo" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/40/0084ff/ffffff?text=ICPC27'">
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+                <div class="flex items-center space-x-3">
+                    <div class="logo-ring w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-icpc-surface overflow-hidden">
+                        <img src="./logo.png" alt="ICPC27 Logo" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/40/0084ff/ffffff?text=ICPC27'">
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-base sm:text-lg tracking-wide leading-none flex items-center gap-1.5">
+                            <span class="text-icpc-blue">ICPC</span><span class="text-icpc-yellow">27</span>
+                            <span class="text-[11px] sm:text-xs font-semibold px-2 py-0.5 rounded-full bg-icpc-card text-icpc-textMuted border border-icpc-border">Directory</span>
+                        </h1>
+                        <p class="text-[10px] sm:text-xs text-icpc-textMuted tracking-wider font-mono">THINK / CODE / SOLVE</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="font-extrabold text-lg tracking-wide leading-none flex items-center gap-1.5">
-                        <span class="text-icpc-blue">ICPC</span><span class="text-icpc-yellow">27</span>
-                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-icpc-card text-icpc-textMuted border border-icpc-border">Directory</span>
-                    </h1>
-                    <p class="text-xs text-icpc-textMuted tracking-wider font-mono">THINK / CODE / SOLVE</p>
+
+                <!-- Action Buttons for Mobile View -->
+                <div class="flex sm:hidden items-center gap-1.5">
+                    <button id="musicToggleBtnMobile" onclick="toggleBgMusic()" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-icpc-card text-white border border-icpc-border flex items-center gap-1" title="Toggle Music">
+                        <i id="musicIconMobile" class="fa-solid fa-music text-icpc-blue text-xs"></i>
+                    </button>
+                    <button onclick="openAdminModal()" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-icpc-card text-white border border-icpc-border flex items-center gap-1">
+                        <i class="fa-solid fa-lock text-icpc-yellow text-xs"></i>
+                    </button>
                 </div>
             </div>
 
             <!-- Navigation Tabs -->
-            <nav class="flex items-center gap-1 sm:gap-2 bg-icpc-surface/80 p-1 rounded-xl border border-icpc-border text-sm">
-                <button id="navTabDirectory" onclick="switchTab('directory')" class="px-3.5 py-1.5 rounded-lg font-medium transition-all duration-300 bg-icpc-blue text-white shadow-md btn-animate">
-                    <i class="fa-solid fa-users mr-1.5"></i> Directory
+            <nav class="flex items-center justify-center gap-1 bg-icpc-surface/80 p-1 rounded-xl border border-icpc-border text-xs sm:text-sm w-full sm:w-auto">
+                <button id="navTabDirectory" onclick="switchTab('directory')" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-medium transition-all duration-300 bg-icpc-blue text-white shadow-md btn-animate text-center">
+                    <i class="fa-solid fa-users mr-1"></i> Directory
                 </button>
-                <button id="navTabContests" onclick="switchTab('contests')" class="px-3.5 py-1.5 rounded-lg font-medium text-icpc-textMuted hover:text-white hover:bg-icpc-card transition-all duration-300 btn-animate">
-                    <i class="fa-solid fa-trophy text-icpc-yellow mr-1.5"></i> Local Contests
+                <button id="navTabContests" onclick="switchTab('contests')" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-medium text-icpc-textMuted hover:text-white hover:bg-icpc-card transition-all duration-300 btn-animate text-center">
+                    <i class="fa-solid fa-trophy text-icpc-yellow mr-1"></i> Contests
                 </button>
-                <button id="navTabRegister" onclick="switchTab('register')" class="px-3.5 py-1.5 rounded-lg font-medium text-icpc-textMuted hover:text-white hover:bg-icpc-card transition-all duration-300 btn-animate">
-                    <i class="fa-solid fa-user-plus text-icpc-blue mr-1.5"></i> Add Profile
+                <button id="navTabRegister" onclick="switchTab('register')" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-medium text-icpc-textMuted hover:text-white hover:bg-icpc-card transition-all duration-300 btn-animate text-center">
+                    <i class="fa-solid fa-user-plus text-icpc-blue mr-1"></i> Add Profile
                 </button>
             </nav>
 
-            <!-- Action Buttons: Music Toggle & Admin Login -->
-            <div class="flex items-center gap-2">
+            <!-- Action Buttons for Desktop View -->
+            <div class="hidden sm:flex items-center gap-2">
                 <button id="musicToggleBtn" onclick="toggleBgMusic()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-icpc-card hover:bg-icpc-border text-white border border-icpc-border hover:border-icpc-blue transition-all flex items-center gap-1.5 btn-animate" title="Toggle Background Music">
                     <i id="musicIcon" class="fa-solid fa-music text-icpc-blue"></i>
                     <span id="musicBtnText">Play Music</span>
@@ -263,7 +275,7 @@
     </header>
 
     <!-- Background Music Audio Element -->
-    <audio id="bgMusic" loop preload="auto">
+    <audio id="bgMusic" autoplay loop preload="auto">
         <source src="./sound1.mp3" type="audio/mpeg">
         <source src="./sound1.wav" type="audio/wav">
         <source src="./sound1.ogg" type="audio/ogg">
@@ -722,6 +734,12 @@
             
             // Background Auto Sync Every 8 Seconds (after initial immediate load)
             setInterval(fetchFromGAS, 8000);
+
+            // Auto-hide Header on Scroll (Hide on Scroll Down, Show on Scroll Up)
+            initScrollHeaderHide();
+
+            // Attempt Immediate Background Music Autoplay on HTML Open
+            attemptImmediateMusicPlay();
         });
 
         // Load Data from Local Cache & Trigger Remote Merge
@@ -908,21 +926,52 @@
             });
         }
 
+        // AUTO-HIDE HEADER ON SCROLL (Hide on Scroll Down, Show on Scroll Up)
+        function initScrollHeaderHide() {
+            let lastScrollY = window.scrollY;
+            const header = document.querySelector('header');
+            if (!header) return;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                if (currentScrollY > 70 && currentScrollY > lastScrollY) {
+                    // Scrolling down -> hide header smoothly
+                    header.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                } else {
+                    // Scrolling up -> reveal header smoothly
+                    header.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                }
+                lastScrollY = currentScrollY;
+            }, { passive: true });
+        }
+
         // BACKGROUND MUSIC CONTROL LOGIC (sound1.mp3)
         let isMusicPlaying = false;
 
-        function toggleBgMusic() {
-            const audio = document.getElementById('bgMusic');
+        function updateMusicUI(playing) {
             const icon = document.getElementById('musicIcon');
+            const iconMobile = document.getElementById('musicIconMobile');
             const text = document.getElementById('musicBtnText');
 
+            if (playing) {
+                if (icon) icon.className = "fa-solid fa-volume-high text-emerald-400 animate-pulse";
+                if (iconMobile) iconMobile.className = "fa-solid fa-volume-high text-emerald-400 animate-pulse text-xs";
+                if (text) text.innerText = "Pause Music";
+            } else {
+                if (icon) icon.className = "fa-solid fa-music text-icpc-blue";
+                if (iconMobile) iconMobile.className = "fa-solid fa-music text-icpc-blue text-xs";
+                if (text) text.innerText = "Play Music";
+            }
+        }
+
+        function toggleBgMusic() {
+            const audio = document.getElementById('bgMusic');
             if (!audio) return;
 
             if (audio.paused) {
                 audio.play().then(() => {
                     isMusicPlaying = true;
-                    if (icon) icon.className = "fa-solid fa-volume-high text-emerald-400 animate-pulse";
-                    if (text) text.innerText = "Pause Music";
+                    updateMusicUI(true);
                     showToast('Background music playing ♪', 'info');
                 }).catch(err => {
                     showToast('Click anywhere on page to enable music audio.', 'warning');
@@ -930,25 +979,38 @@
             } else {
                 audio.pause();
                 isMusicPlaying = false;
-                if (icon) icon.className = "fa-solid fa-music text-icpc-blue";
-                if (text) text.innerText = "Play Music";
+                updateMusicUI(false);
                 showToast('Music paused', 'info');
             }
         }
 
-        // Auto-start music on first user click anywhere on page (browser policy compliance)
-        document.addEventListener('click', function startAudioOnFirstClick() {
+        // Immediate music autoplay when HTML opens (with compliance for browser autoplay policies)
+        function attemptImmediateMusicPlay() {
             const audio = document.getElementById('bgMusic');
-            if (audio && audio.paused && !isMusicPlaying) {
-                audio.play().then(() => {
+            if (!audio) return;
+
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
                     isMusicPlaying = true;
-                    const icon = document.getElementById('musicIcon');
-                    const text = document.getElementById('musicBtnText');
-                    if (icon) icon.className = "fa-solid fa-volume-high text-emerald-400 animate-pulse";
-                    if (text) text.innerText = "Pause Music";
-                }).catch(() => {});
+                    updateMusicUI(true);
+                }).catch(() => {
+                    // Browser blocked unmuted autoplay -> attach one-time listener to any user touch/scroll/key/click
+                    const enableAudioOnInteraction = () => {
+                        if (audio.paused && !isMusicPlaying) {
+                            audio.play().then(() => {
+                                isMusicPlaying = true;
+                                updateMusicUI(true);
+                            }).catch(() => {});
+                        }
+                    };
+
+                    ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+                        window.addEventListener(evt, enableAudioOnInteraction, { once: true });
+                    });
+                });
             }
-        }, { once: true });
+        }
 
         // PROFILE SUBMISSION & EDITING
         async function handleProfileSubmit(e) {
