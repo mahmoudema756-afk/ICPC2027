@@ -247,8 +247,13 @@
                 </button>
             </nav>
 
-            <!-- Action Button: Admin Login -->
+            <!-- Action Buttons: Music Toggle & Admin Login -->
             <div class="flex items-center gap-2">
+                <button id="musicToggleBtn" onclick="toggleBgMusic()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-icpc-card hover:bg-icpc-border text-white border border-icpc-border hover:border-icpc-blue transition-all flex items-center gap-1.5 btn-animate" title="Toggle Background Music">
+                    <i id="musicIcon" class="fa-solid fa-music text-icpc-blue"></i>
+                    <span id="musicBtnText">Play Music</span>
+                </button>
+
                 <button id="adminAuthBtn" onclick="openAdminModal()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-icpc-card hover:bg-icpc-border text-white border border-icpc-border hover:border-icpc-yellow transition-all flex items-center gap-1.5 btn-animate">
                     <i class="fa-solid fa-lock text-icpc-yellow"></i>
                     <span id="adminAuthBtnText">Admin Login</span>
@@ -256,6 +261,13 @@
             </div>
         </div>
     </header>
+
+    <!-- Background Music Audio Element -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="./sound1.mp3" type="audio/mpeg">
+        <source src="./sound1.wav" type="audio/wav">
+        <source src="./sound1.ogg" type="audio/ogg">
+    </audio>
 
     <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
@@ -458,36 +470,14 @@
                         </label>
                         <div class="grid grid-cols-2 gap-4">
                             <label class="flex items-center justify-center gap-2 p-3 rounded-xl glass-input cursor-pointer border hover:border-icpc-blue transition-all">
-                                <input type="radio" name="formGender" value="Male" checked onchange="toggleGenderAvatarLogic()" class="accent-icpc-blue">
+                                <input type="radio" name="formGender" value="Male" checked class="accent-icpc-blue">
                                 <span class="text-sm font-semibold text-white"><i class="fa-solid fa-mars text-blue-400 mr-1"></i> Male</span>
                             </label>
                             <label class="flex items-center justify-center gap-2 p-3 rounded-xl glass-input cursor-pointer border hover:border-pink-500 transition-all">
-                                <input type="radio" name="formGender" value="Female" onchange="toggleGenderAvatarLogic()" class="accent-pink-500">
+                                <input type="radio" name="formGender" value="Female" class="accent-pink-500">
                                 <span class="text-sm font-semibold text-white"><i class="fa-solid fa-venus text-pink-400 mr-1"></i> Female</span>
                             </label>
                         </div>
-                    </div>
-
-                    <!-- CONDITIONAL: Profile Picture Upload (Male Only) -->
-                    <div id="avatarUploadContainer" class="space-y-2">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted">
-                            Profile Picture <span class="text-xs font-normal text-icpc-textMuted">(Optional for Male)</span>
-                        </label>
-                        <div class="flex items-center gap-4">
-                            <div class="relative w-16 h-16 rounded-2xl bg-icpc-surface border border-icpc-border flex items-center justify-center overflow-hidden shrink-0">
-                                <img id="avatarPreviewImg" src="https://api.dicebear.com/7.x/bottts/svg?seed=DefaultMale" alt="Avatar Preview" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-grow">
-                                <input type="file" id="formAvatarFile" accept="image/*" onchange="previewUploadedAvatar(this)" class="block w-full text-xs text-icpc-textMuted file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-icpc-blue/20 file:text-icpc-blue hover:file:bg-icpc-blue/30 cursor-pointer">
-                                <p class="text-[11px] text-icpc-textMuted mt-1">If left blank, a default male avatar will be automatically assigned.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Female Avatar Notice (Shown when Female is selected) -->
-                    <div id="femaleAvatarNotice" class="hidden p-3 rounded-xl bg-pink-500/10 border border-pink-500/20 text-xs text-pink-300 flex items-center gap-2 animate-fade-in">
-                        <i class="fa-solid fa-circle-info text-pink-400 text-sm"></i>
-                        <span>Default female avatar will be automatically assigned to protect privacy.</span>
                     </div>
 
                     <!-- Codeforces Handle -->
@@ -918,36 +908,47 @@
             });
         }
 
-        // GENDER & AVATAR LOGIC
-        function toggleGenderAvatarLogic() {
-            const genderVal = document.querySelector('input[name="formGender"]:checked').value;
-            const avatarContainer = document.getElementById('avatarUploadContainer');
-            const femaleNotice = document.getElementById('femaleAvatarNotice');
-            const previewImg = document.getElementById('avatarPreviewImg');
+        // BACKGROUND MUSIC CONTROL LOGIC (sound1.mp3)
+        let isMusicPlaying = false;
 
-            if (genderVal === 'Female') {
-                avatarContainer.classList.add('hidden');
-                femaleNotice.classList.remove('hidden');
-                previewImg.src = DEFAULT_FEMALE_AVATAR;
+        function toggleBgMusic() {
+            const audio = document.getElementById('bgMusic');
+            const icon = document.getElementById('musicIcon');
+            const text = document.getElementById('musicBtnText');
+
+            if (!audio) return;
+
+            if (audio.paused) {
+                audio.play().then(() => {
+                    isMusicPlaying = true;
+                    if (icon) icon.className = "fa-solid fa-volume-high text-emerald-400 animate-pulse";
+                    if (text) text.innerText = "Pause Music";
+                    showToast('Background music playing ♪', 'info');
+                }).catch(err => {
+                    showToast('Click anywhere on page to enable music audio.', 'warning');
+                });
             } else {
-                avatarContainer.classList.remove('hidden');
-                femaleNotice.classList.add('hidden');
-                const fileInput = document.getElementById('formAvatarFile');
-                if (!fileInput.files || !fileInput.files[0]) {
-                    previewImg.src = DEFAULT_MALE_AVATAR;
-                }
+                audio.pause();
+                isMusicPlaying = false;
+                if (icon) icon.className = "fa-solid fa-music text-icpc-blue";
+                if (text) text.innerText = "Play Music";
+                showToast('Music paused', 'info');
             }
         }
 
-        function previewUploadedAvatar(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById('avatarPreviewImg').src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
+        // Auto-start music on first user click anywhere on page (browser policy compliance)
+        document.addEventListener('click', function startAudioOnFirstClick() {
+            const audio = document.getElementById('bgMusic');
+            if (audio && audio.paused && !isMusicPlaying) {
+                audio.play().then(() => {
+                    isMusicPlaying = true;
+                    const icon = document.getElementById('musicIcon');
+                    const text = document.getElementById('musicBtnText');
+                    if (icon) icon.className = "fa-solid fa-volume-high text-emerald-400 animate-pulse";
+                    if (text) text.innerText = "Pause Music";
+                }).catch(() => {});
             }
-        }
+        }, { once: true });
 
         // PROFILE SUBMISSION & EDITING
         async function handleProfileSubmit(e) {
@@ -960,20 +961,14 @@
             const icpcParticipant = document.getElementById('formIcpcParticipant').value;
             const role = document.getElementById('formRole').value;
 
-            let avatarUrl = gender === 'Female' ? DEFAULT_FEMALE_AVATAR : DEFAULT_MALE_AVATAR;
-
-            if (gender === 'Male') {
-                const fileInput = document.getElementById('formAvatarFile');
-                if (fileInput.files && fileInput.files[0]) {
-                    avatarUrl = await readFileAsBase64(fileInput.files[0]);
-                }
-            }
+            // Automatically assign default avatar based on selected gender
+            const avatarUrl = gender === 'Female' ? DEFAULT_FEMALE_AVATAR : DEFAULT_MALE_AVATAR;
 
             const newProfile = {
                 id: 'p-' + Date.now(),
                 fullName,
                 gender,
-                avatar: avatarUrl.length > 50000 ? DEFAULT_MALE_AVATAR : avatarUrl,
+                avatar: avatarUrl,
                 codeforces,
                 university,
                 icpcParticipant,
@@ -987,7 +982,7 @@
             renderAll();
             showToast('Profile submitted successfully!', 'success');
             document.getElementById('profileForm').reset();
-            toggleGenderAvatarLogic();
+            switchTab('directory');
             switchTab('directory');
 
             // Sync to Google Sheets asynchronously
