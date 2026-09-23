@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICPC27 - Community Directory & Contest Hub</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Official ICPC27 Community Profile Directory, Local Contests Leaderboard, and Admin Hub. Think / Code / Solve. Designed By Mahmoud Emad.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        icpc: {
+                            bg: '#0b0f19',
+                            surface: '#111827',
+                            card: '#161f33',
+                            cardHover: '#1c2842',
+                            border: '#22304d',
+                            blue: '#0084ff',
+                            blueGlow: '#005bb5',
+                            yellow: '#ffb800',
+                            yellowGlow: '#d99b00',
+                            textMuted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Glassmorphism & Micro-Animations CSS -->
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f8fafc;
+            font-family: 'Outfit', sans-serif;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 132, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 25%, rgba(255, 184, 0, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(0, 132, 255, 0.06) 0%, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Animated Blobs */
+        .ambient-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            pointer-events: none;
+            animation: floatSlow 10s ease-in-out infinite alternate;
+        }
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 132, 255, 0.2);
+        }
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 184, 0, 0.15);
+            animation-delay: -5s;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatSlow {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+            100% { transform: translateY(0px) scale(1); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 132, 255, 0.4), 0 0 35px rgba(255, 184, 0, 0.2); }
+            50% { box-shadow: 0 0 35px rgba(0, 132, 255, 0.7), 0 0 55px rgba(255, 184, 0, 0.4); }
+        }
+
+        @keyframes cardPop {
+            0% { opacity: 0; transform: scale(0.94) translateY(12px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-card {
+            animation: cardPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .logo-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        .glass-panel {
+            background: rgba(22, 31, 51, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(34, 48, 77, 0.8);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 132, 255, 0.35);
+        }
+
+        .glass-input {
+            background: rgba(11, 15, 25, 0.75);
+            border: 1px solid rgba(34, 48, 77, 0.9);
+            transition: all 0.25s ease;
+        }
+
+        .glass-input:focus {
+            border-color: #0084ff;
+            box-shadow: 0 0 16px rgba(0, 132, 255, 0.35);
+            outline: none;
+        }
+
+        .badge-blue {
+            background: linear-gradient(135deg, rgba(0, 132, 255, 0.2) 0%, rgba(0, 132, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 132, 255, 0.4);
+            color: #60a5fa;
+        }
+
+        .badge-yellow {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.2) 0%, rgba(255, 184, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 184, 0, 0.4);
+            color: #fbbf24;
+        }
+
+        .badge-green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }
+
+        .logo-ring {
+            position: relative;
+        }
+        .logo-ring::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #0084ff 0%, #ffb800 100%);
+            z-index: -1;
+            opacity: 0.8;
+            filter: blur(8px);
+            transition: opacity 0.3s ease;
+        }
+        .logo-ring:hover::after {
+            opacity: 1;
+            filter: blur(14px);
+        }
+
+        /* Interactive Button Hover Animations */
+        .btn-animate {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-animate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(0, 132, 255, 0.4);
+        }
+        .btn-animate:active {
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #22304d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0084ff;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-icpc-blue selection:text-white relative">
+
+    <!-- Background Ambient Animated Lights -->
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+
+    <!-- TOP ANNOUNCEMENT & APP BAR -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-icpc-border/80 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Brand Quick Switch -->
+            <div class="flex items-center space-x-3">
+                <div class="logo-ring w-10 h-10 rounded-full flex items-center justify-center bg-icpc-surface overflow-hidden">
+                    <img src="./logo.png" alt="ICPC27 Logo" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/40/0084ff/ffffff?text=ICPC27'">
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg tracking-wide leading-none flex items-center gap-1.5">
+                        <span class="text-icpc-blue">ICPC</span><span class="text-icpc-yellow">27</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-icpc-card text-icpc-textMuted border border-icpc-border">Directory</span>
+                    </h1>
+                    <p class="text-xs text-icpc-textMuted tracking-wider font-mono">THINK / CODE / SOLVE</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex items-center gap-1 sm:gap-2 bg-icpc-surface/80 p-1 rounded-xl border border-icpc-border text-sm">
+                <button id="navTabDirectory" onclick="switchTab('directory')" class="px-3.5 py-1.5 rounded-lg font-medium transition-all duration-300 bg-icpc-blue text-white shadow-md btn-animate">
+                    <i class="fa-solid fa-users mr-1.5"></i> Directory
+                </button>
+                <button id="navTabContests" onclick="switchTab('contests')" class="px-3.5 py-1.5 rounded-lg font-medium text-icpc-textMuted hover:text-white hover:bg-icpc-card transition-all duration-300 btn-animate">
+                    <i class="fa-solid fa-trophy text-icpc-yellow mr-1.5"></i> Local Contests
+                </button>
+                <button id="navTabRegister" onclick="switchTab('register')" class="px-3.5 py-1.5 rounded-lg font-medium text-icpc-textMuted hover:text-white hover:bg-icpc-card transition-all duration-300 btn-animate">
+                    <i class="fa-solid fa-user-plus text-icpc-blue mr-1.5"></i> Add Profile
+                </button>
+            </nav>
+
+            <!-- Action Button: Admin Login -->
+            <div class="flex items-center gap-2">
+                <button id="adminAuthBtn" onclick="openAdminModal()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-icpc-card hover:bg-icpc-border text-white border border-icpc-border hover:border-icpc-yellow transition-all flex items-center gap-1.5 btn-animate">
+                    <i class="fa-solid fa-lock text-icpc-yellow"></i>
+                    <span id="adminAuthBtnText">Admin Login</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
+
+        <!-- BRAND HERO SECTION WITH ANIMATION -->
+        <section class="mb-10 text-center relative animate-fade-in">
+            <div class="inline-block relative mb-4">
+                <div class="logo-ring logo-glow w-28 h-28 sm:w-36 sm:h-36 rounded-full mx-auto bg-icpc-surface p-1 shadow-2xl overflow-hidden flex items-center justify-center transition-transform hover:scale-105 duration-300">
+                    <img src="./logo.png" alt="ICPC 2027 Logo" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/dicebear/dicebear/main/website/static/img/dicebear.svg';">
+                </div>
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-2 leading-tight">
+                INTERNATIONAL COLLEGIATE PROGRAMMING CONTEST
+            </h1>
+            <p class="text-lg sm:text-xl font-mono text-icpc-yellow tracking-widest font-semibold uppercase mb-4">
+                — 2 0 2 7 —
+            </p>
+            <div class="flex items-center justify-center gap-3 text-sm font-mono text-icpc-textMuted">
+                <span class="px-3.5 py-1 rounded-full bg-icpc-card border border-icpc-border text-icpc-blue font-bold shadow-sm">THINK</span>
+                <span class="text-icpc-textMuted/60">/</span>
+                <span class="px-3.5 py-1 rounded-full bg-icpc-card border border-icpc-border text-white font-bold shadow-sm">CODE</span>
+                <span class="text-icpc-textMuted/60">/</span>
+                <span class="px-3.5 py-1 rounded-full bg-icpc-card border border-icpc-border text-icpc-yellow font-bold shadow-sm">SOLVE</span>
+            </div>
+        </section>
+
+        <!-- ADMIN LOGGED IN BANNER (Visible only when logged in as admin) -->
+        <div id="adminBanner" class="hidden mb-6 p-4 rounded-xl glass-panel border-l-4 border-icpc-yellow flex flex-wrap items-center justify-between gap-4 animate-fade-in">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-icpc-yellow/20 flex items-center justify-center text-icpc-yellow font-bold">
+                    <i class="fa-solid fa-user-shield text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base flex items-center gap-2">
+                        Admin Mode Active
+                        <span class="text-xs px-2 py-0.5 rounded bg-icpc-yellow/20 text-icpc-yellow border border-icpc-yellow/30 font-mono">AUTHORIZED</span>
+                    </h3>
+                    <p class="text-xs text-icpc-textMuted">You can edit/delete profiles and manage Local Contests directly.</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="openCreateContestModal()" class="px-3.5 py-1.5 rounded-lg bg-icpc-yellow text-black font-bold text-xs hover:bg-yellow-400 transition-colors flex items-center gap-1.5 shadow-lg btn-animate">
+                    <i class="fa-solid fa-plus"></i> New Local Contest
+                </button>
+                <button onclick="logoutAdmin()" class="px-3.5 py-1.5 rounded-lg bg-red-500/20 text-red-400 border border-red-500/40 font-semibold text-xs hover:bg-red-500/30 transition-colors btn-animate">
+                    Logout Admin
+                </button>
+            </div>
+        </div>
+
+        <!-- STATS BAR WITH HOVER ANIMATIONS -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-panel p-4 rounded-2xl border border-icpc-border flex items-center gap-4 hover:border-icpc-blue/50 transition-all hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-xl bg-icpc-blue/20 text-icpc-blue flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-icpc-textMuted uppercase font-semibold">Total Members</p>
+                    <h4 id="statTotalMembers" class="text-2xl font-bold text-white">0</h4>
+                </div>
+            </div>
+            
+            <div class="glass-panel p-4 rounded-2xl border border-icpc-border flex items-center gap-4 hover:border-purple-500/50 transition-all hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-icpc-textMuted uppercase font-semibold">Instructors</p>
+                    <h4 id="statInstructors" class="text-2xl font-bold text-white">0</h4>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl border border-icpc-border flex items-center gap-4 hover:border-emerald-500/50 transition-all hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-icpc-textMuted uppercase font-semibold">Learners</p>
+                    <h4 id="statLearners" class="text-2xl font-bold text-white">0</h4>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl border border-icpc-border flex items-center gap-4 hover:border-icpc-yellow/50 transition-all hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-xl bg-icpc-yellow/20 text-icpc-yellow flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-icpc-textMuted uppercase font-semibold">ICPC '27 Rivals</p>
+                    <h4 id="statIcpc" class="text-2xl font-bold text-icpc-yellow">0</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 1: PROFILES DIRECTORY ================= -->
+        <section id="tabDirectory" class="space-y-6 animate-fade-in">
+            <!-- Search & Filter Controls -->
+            <div class="glass-panel p-4 sm:p-5 rounded-2xl border border-icpc-border flex flex-col md:flex-row gap-4 justify-between items-center">
+                <!-- Search Input -->
+                <div class="relative w-full md:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-icpc-textMuted"></i>
+                    <input type="text" id="searchInput" oninput="renderProfiles()" placeholder="Search name, Codeforces handle, university..." class="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-white placeholder-icpc-textMuted text-sm">
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <!-- Role Filter -->
+                    <select id="filterRole" onchange="renderProfiles()" class="px-3 py-2 rounded-xl glass-input text-white text-sm cursor-pointer">
+                        <option value="ALL">All Roles</option>
+                        <option value="Instructor">Instructors</option>
+                        <option value="Learner">Learners</option>
+                    </select>
+
+                    <!-- ICPC Status Filter -->
+                    <select id="filterIcpc" onchange="renderProfiles()" class="px-3 py-2 rounded-xl glass-input text-white text-sm cursor-pointer">
+                        <option value="ALL">ICPC Status: All</option>
+                        <option value="Yes">ICPC Participant (Yes)</option>
+                        <option value="No">Non-ICPC (No)</option>
+                    </select>
+
+                    <!-- Gender Filter -->
+                    <select id="filterGender" onchange="renderProfiles()" class="px-3 py-2 rounded-xl glass-input text-white text-sm cursor-pointer">
+                        <option value="ALL">Gender: All</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Profiles Grid -->
+            <div id="profilesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic profile cards rendered via JavaScript -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="noProfilesMessage" class="hidden text-center py-16 glass-panel rounded-2xl border border-icpc-border">
+                <i class="fa-solid fa-user-slash text-4xl text-icpc-textMuted mb-3"></i>
+                <h3 class="text-lg font-bold text-white">No Profiles Found</h3>
+                <p class="text-sm text-icpc-textMuted mt-1">Try adjusting your search filters or submit a new profile.</p>
+                <button onclick="switchTab('register')" class="mt-4 px-4 py-2 rounded-xl bg-icpc-blue text-white font-semibold text-sm hover:bg-blue-600 transition-colors btn-animate">
+                    Add First Profile
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: LOCAL CONTESTS ================= -->
+        <section id="tabContests" class="hidden space-y-6 animate-fade-in">
+            <div class="flex flex-wrap items-center justify-between gap-4 glass-panel p-5 rounded-2xl border border-icpc-border">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-icpc-yellow"></i> Local Contests Arena
+                    </h2>
+                    <p class="text-sm text-icpc-textMuted">Upcoming community challenges and archived competition leaderboards.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="filterContestsTab('all')" id="contestTabAll" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-icpc-blue text-white btn-animate">All Contests</button>
+                    <button onclick="filterContestsTab('upcoming')" id="contestTabUpcoming" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-icpc-card text-icpc-textMuted hover:text-white btn-animate">Upcoming</button>
+                    <button onclick="filterContestsTab('past')" id="contestTabPast" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-icpc-card text-icpc-textMuted hover:text-white btn-animate">Completed</button>
+                </div>
+            </div>
+
+            <div id="contestsGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Dynamic Local Contests Rendered Here -->
+            </div>
+
+            <!-- Empty Contests State -->
+            <div id="noContestsMessage" class="hidden text-center py-16 glass-panel rounded-2xl border border-icpc-border">
+                <i class="fa-solid fa-calendar-xmark text-4xl text-icpc-textMuted mb-3"></i>
+                <h3 class="text-lg font-bold text-white">No Local Contests Scheduled</h3>
+                <p class="text-sm text-icpc-textMuted mt-1">Check back later or ask an Admin to publish a new contest schedule.</p>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: PROFILE SUBMISSION FORM ================= -->
+        <section id="tabRegister" class="hidden max-w-2xl mx-auto animate-fade-in">
+            <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-icpc-border shadow-2xl relative">
+                
+                <div class="mb-6 text-center">
+                    <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-icpc-blue/10 border border-icpc-blue/30 text-icpc-blue text-2xl mb-3">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white">Join the ICPC27 Directory</h2>
+                    <p class="text-sm text-icpc-textMuted mt-1">Submit your profile to connect with peers and participate in local contests.</p>
+                </div>
+
+                <form id="profileForm" onsubmit="handleProfileSubmit(event)" class="space-y-5">
+                    
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1.5">
+                            Full Name <span class="text-red-400">*</span>
+                        </label>
+                        <input type="text" id="formFullName" required placeholder="e.g. Ahmed Mahmoud" class="w-full px-4 py-3 rounded-xl glass-input text-white placeholder-icpc-textMuted text-sm">
+                    </div>
+
+                    <!-- Gender Selection -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1.5">
+                            Gender <span class="text-red-400">*</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="flex items-center justify-center gap-2 p-3 rounded-xl glass-input cursor-pointer border hover:border-icpc-blue transition-all">
+                                <input type="radio" name="formGender" value="Male" checked onchange="toggleGenderAvatarLogic()" class="accent-icpc-blue">
+                                <span class="text-sm font-semibold text-white"><i class="fa-solid fa-mars text-blue-400 mr-1"></i> Male</span>
+                            </label>
+                            <label class="flex items-center justify-center gap-2 p-3 rounded-xl glass-input cursor-pointer border hover:border-pink-500 transition-all">
+                                <input type="radio" name="formGender" value="Female" onchange="toggleGenderAvatarLogic()" class="accent-pink-500">
+                                <span class="text-sm font-semibold text-white"><i class="fa-solid fa-venus text-pink-400 mr-1"></i> Female</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- CONDITIONAL: Profile Picture Upload (Male Only) -->
+                    <div id="avatarUploadContainer" class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted">
+                            Profile Picture <span class="text-xs font-normal text-icpc-textMuted">(Optional for Male)</span>
+                        </label>
+                        <div class="flex items-center gap-4">
+                            <div class="relative w-16 h-16 rounded-2xl bg-icpc-surface border border-icpc-border flex items-center justify-center overflow-hidden shrink-0">
+                                <img id="avatarPreviewImg" src="https://api.dicebear.com/7.x/bottts/svg?seed=DefaultMale" alt="Avatar Preview" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow">
+                                <input type="file" id="formAvatarFile" accept="image/*" onchange="previewUploadedAvatar(this)" class="block w-full text-xs text-icpc-textMuted file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-icpc-blue/20 file:text-icpc-blue hover:file:bg-icpc-blue/30 cursor-pointer">
+                                <p class="text-[11px] text-icpc-textMuted mt-1">If left blank, a default male avatar will be automatically assigned.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Female Avatar Notice (Shown when Female is selected) -->
+                    <div id="femaleAvatarNotice" class="hidden p-3 rounded-xl bg-pink-500/10 border border-pink-500/20 text-xs text-pink-300 flex items-center gap-2 animate-fade-in">
+                        <i class="fa-solid fa-circle-info text-pink-400 text-sm"></i>
+                        <span>Default female avatar will be automatically assigned to protect privacy.</span>
+                    </div>
+
+                    <!-- Codeforces Handle -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1.5">
+                            Codeforces Handle <span class="text-red-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-mono text-icpc-textMuted">@</span>
+                            <input type="text" id="formCodeforces" required placeholder="tourist" class="w-full pl-8 pr-4 py-3 rounded-xl glass-input text-white font-mono placeholder-icpc-textMuted text-sm">
+                        </div>
+                    </div>
+
+                    <!-- University Name -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1.5">
+                            University Name <span class="text-red-400">*</span>
+                        </label>
+                        <input type="text" id="formUniversity" required placeholder="e.g. Cairo University / MIT" class="w-full px-4 py-3 rounded-xl glass-input text-white placeholder-icpc-textMuted text-sm">
+                    </div>
+
+                    <!-- ICPC Participation this year? -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1.5">
+                            ICPC Participation this year? <span class="text-red-400">*</span>
+                        </label>
+                        <select id="formIcpcParticipant" required class="w-full px-4 py-3 rounded-xl glass-input text-white text-sm cursor-pointer">
+                            <option value="Yes">Yes — Participating in ICPC 2027</option>
+                            <option value="No">No — Not participating this year</option>
+                        </select>
+                    </div>
+
+                    <!-- Community Role -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1.5">
+                            Community Role <span class="text-red-400">*</span>
+                        </label>
+                        <select id="formRole" required class="w-full px-4 py-3 rounded-xl glass-input text-white text-sm cursor-pointer">
+                            <option value="Learner">Learner (Student / Competitive Programmer)</option>
+                            <option value="Instructor">Instructor (Coach / Trainer / Problem Setter)</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitProfileBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-icpc-blue to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold text-base shadow-lg shadow-icpc-blue/30 transition-all btn-animate flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Profile
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER WITH DESIGNER CREDIT -->
+    <footer class="mt-auto border-t border-icpc-border/80 glass-panel py-6 px-4 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-icpc-textMuted">
+            <div class="flex items-center gap-2">
+                <img src="./logo.png" alt="ICPC27" class="w-6 h-6 rounded-full" onerror="this.style.display='none'">
+                <span class="font-bold text-white">ICPC 2027 Community Directory</span>
+            </div>
+            
+            <!-- DESIGNED BY MAHMOUD EMAD CREDIT -->
+            <div class="font-mono text-sm font-bold text-icpc-yellow flex items-center gap-2 tracking-wide px-3 py-1 rounded-xl bg-icpc-card/80 border border-icpc-border">
+                <i class="fa-solid fa-code text-icpc-blue"></i>
+                <span>Designed By <strong class="text-white">Mahmoud Emad</strong></span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="openAdminModal()" class="hover:text-icpc-blue transition-colors flex items-center gap-1.5"><i class="fa-solid fa-key"></i> Admin</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. ADMIN LOGIN MODAL -->
+    <div id="modalAdmin" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-icpc-border w-full max-w-md shadow-2xl relative">
+            <button onclick="closeModal('modalAdmin')" class="absolute top-4 right-4 text-icpc-textMuted hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-icpc-yellow/10 border border-icpc-yellow/30 text-icpc-yellow flex items-center justify-center text-2xl mx-auto mb-3">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Admin Authentication</h3>
+                <p class="text-xs text-icpc-textMuted mt-1">Enter administrator password to manage profiles and contests.</p>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1.5">Admin Password</label>
+                    <input type="password" id="adminPasswordInput" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl glass-input text-white text-sm">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-icpc-yellow text-black font-bold text-sm hover:bg-yellow-400 transition-colors shadow-lg btn-animate">
+                    Authenticate
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. CREATE / EDIT LOCAL CONTEST MODAL (Admin Only) -->
+    <div id="modalContest" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto animate-fade-in">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-icpc-border w-full max-w-xl shadow-2xl relative my-8">
+            <button onclick="closeModal('modalContest')" class="absolute top-4 right-4 text-icpc-textMuted hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-6">
+                <h3 id="contestModalTitle" class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-icpc-yellow"></i> Add Local Contest
+                </h3>
+                <p class="text-xs text-icpc-textMuted">Schedule upcoming contests or publish standings for finished rounds.</p>
+            </div>
+
+            <form onsubmit="handleSaveContest(event)" class="space-y-4">
+                <input type="hidden" id="contestEditId">
+                
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1">Contest Name</label>
+                    <input type="text" id="contestFormName" required placeholder="e.g. ICPC27 Warmup Contest #1" class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-1">Contest Date & Time</label>
+                    <input type="datetime-local" id="contestFormDateTime" required class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                </div>
+
+                <!-- Participant Ranks Section -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-icpc-textMuted">Participants & Ranks</label>
+                        <button type="button" onclick="addParticipantRow()" class="text-xs font-bold text-icpc-blue hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-plus"></i> Add Participant
+                        </button>
+                    </div>
+                    <div id="participantRowsContainer" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                        <!-- Dynamic rows added here -->
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-icpc-border">
+                    <button type="button" onclick="closeModal('modalContest')" class="px-4 py-2 rounded-xl bg-icpc-card text-icpc-textMuted text-xs font-semibold hover:text-white btn-animate">Cancel</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-icpc-yellow text-black font-bold text-xs hover:bg-yellow-400 transition-colors btn-animate">Save Contest</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. EDIT PROFILE MODAL (Admin Only) -->
+    <div id="modalEditProfile" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto animate-fade-in">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-icpc-border w-full max-w-lg shadow-2xl relative my-8">
+            <button onclick="closeModal('modalEditProfile')" class="absolute top-4 right-4 text-icpc-textMuted hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="text-xl font-bold text-white mb-4">Edit Profile</h3>
+
+            <form onsubmit="handleUpdateProfile(event)" class="space-y-4">
+                <input type="hidden" id="editProfileId">
+
+                <div>
+                    <label class="block text-xs font-bold text-icpc-textMuted mb-1">Full Name</label>
+                    <input type="text" id="editFullName" required class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-icpc-textMuted mb-1">Gender</label>
+                    <select id="editGender" class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-icpc-textMuted mb-1">Codeforces Handle</label>
+                    <input type="text" id="editCodeforces" required class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-icpc-textMuted mb-1">University Name</label>
+                    <input type="text" id="editUniversity" required class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-icpc-textMuted mb-1">ICPC Participation</label>
+                    <select id="editIcpc" class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-icpc-textMuted mb-1">Community Role</label>
+                    <select id="editRole" class="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm">
+                        <option value="Learner">Learner</option>
+                        <option value="Instructor">Instructor</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-icpc-border">
+                    <button type="button" onclick="closeModal('modalEditProfile')" class="px-4 py-2 rounded-xl bg-icpc-card text-icpc-textMuted text-xs font-semibold hover:text-white btn-animate">Cancel</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-icpc-blue text-white font-bold text-xs hover:bg-blue-600 transition-colors btn-animate">Update Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // =========================================================
+        // CONFIGURATION: DIRECT GOOGLE SHEETS WEB APP URL
+        // =========================================================
+        const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw_26iRveJImpl--JQp9ZrYjtPdhJGMiNP4c4G4DA6eLyN9ZTbCXfDCQE9oHDkvaRyp/exec";
+
+        // Default Avatars
+        const DEFAULT_MALE_AVATAR = "https://api.dicebear.com/7.x/bottts/svg?seed=MaleParticipant";
+        const DEFAULT_FEMALE_AVATAR = "https://api.dicebear.com/7.x/bottts/svg?seed=FemaleParticipant";
+
+        // Application State
+        let state = {
+            profiles: [],
+            contests: [],
+            isAdmin: false,
+            gasUrl: GOOGLE_SHEETS_WEB_APP_URL,
+            activeContestFilter: 'all',
+            isLoading: true
+        };
+
+        // Initial Seed Data (Empty so dummy profiles never flash on load)
+        const INITIAL_PROFILES = [];
+        const INITIAL_CONTESTS = [];
+
+        // Init on DOM Content Loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            loadInitialData();
+            setInterval(updateCountdowns, 1000);
+            
+            // Background Auto Sync Every 8 Seconds (after initial immediate load)
+            setInterval(fetchFromGAS, 8000);
+        });
+
+        // Load Data from Local Cache & Trigger Remote Merge
+        function loadInitialData() {
+            const localProfiles = localStorage.getItem('icpc27_profiles');
+            const localContests = localStorage.getItem('icpc27_contests');
+
+            let parsedProfiles = localProfiles ? JSON.parse(localProfiles) : INITIAL_PROFILES;
+            let parsedContests = localContests ? JSON.parse(localContests) : INITIAL_CONTESTS;
+
+            // Remove legacy dummy seed profiles (p-1, p-2, p-3, c-1, c-2) if present in local storage
+            parsedProfiles = parsedProfiles.filter(p => !['p-1', 'p-2', 'p-3'].includes(p.id));
+            parsedContests = parsedContests.filter(c => !['c-1', 'c-2'].includes(c.id));
+
+            state.profiles = parsedProfiles;
+            state.contests = parsedContests;
+
+            localStorage.setItem('icpc27_profiles', JSON.stringify(state.profiles));
+            localStorage.setItem('icpc27_contests', JSON.stringify(state.contests));
+
+            renderAll();
+
+            if (state.gasUrl) {
+                fetchFromGAS();
+            }
+        }
+
+        async function fetchFromGAS() {
+            if (!state.gasUrl) return;
+
+            try {
+                // 1. Fetch Profiles & Merge safely with local data
+                const profilesUrl = `${state.gasUrl}?action=getProfiles`;
+                const profilesRes = await fetch(profilesUrl, { method: 'GET', redirect: 'follow' });
+                
+                if (profilesRes.ok) {
+                    const profilesData = await profilesRes.json();
+                    if (profilesData && profilesData.status === 'success' && Array.isArray(profilesData.data)) {
+                        mergeProfiles(profilesData.data);
+                    }
+                }
+
+                // 2. Fetch Contests & Merge safely
+                const contestsUrl = `${state.gasUrl}?action=getContests`;
+                const contestsRes = await fetch(contestsUrl, { method: 'GET', redirect: 'follow' });
+                
+                if (contestsRes.ok) {
+                    const contestsData = await contestsRes.json();
+                    if (contestsData && contestsData.status === 'success' && Array.isArray(contestsData.data)) {
+                        mergeContests(contestsData.data);
+                    }
+                }
+
+                state.isLoading = false;
+                renderAll();
+            } catch (err) {
+                state.isLoading = false;
+                renderAll();
+            }
+        }
+
+        // Robust Merging to Guarantee Data Persistence on Refresh
+        function normalizeProfile(p) {
+            if (!p || typeof p !== 'object') return null;
+
+            let id = p.id;
+            let fullName = p.fullName;
+            let gender = p.gender || "Male";
+            let avatar = p.avatar || "";
+            let codeforces = p.codeforces || "";
+            let university = p.university || "";
+            let icpcParticipant = p.icpcParticipant || "No";
+            let role = p.role || "Learner";
+            let createdAt = p.createdAt || new Date().toISOString();
+
+            // If incoming remote profile object has corrupted key names (due to missing sheet headers):
+            if (!id || id === 'undefined') {
+                const keys = Object.keys(p);
+                const vals = Object.values(p);
+                
+                const idVal = vals.find(v => String(v).startsWith('p-'));
+                const idKey = keys.find(k => String(k).startsWith('p-'));
+                if (idVal) id = String(idVal);
+                else if (idKey) id = String(idKey);
+
+                if (!fullName) {
+                    const strVal = vals.find(v => typeof v === 'string' && !v.startsWith('p-') && !v.startsWith('http') && v !== 'Male' && v !== 'Female' && v !== 'Yes' && v !== 'No' && v !== 'Learner' && v !== 'Instructor');
+                    if (strVal) fullName = strVal;
+                }
+            }
+
+            const cleanId = String(id || '').replace(/^'/, '').trim();
+            if (!cleanId || cleanId === 'undefined') return null;
+
+            return {
+                id: cleanId,
+                fullName: String(fullName || 'Participant'),
+                gender: gender === 'Female' ? 'Female' : 'Male',
+                avatar: avatar || (gender === 'Female' ? DEFAULT_FEMALE_AVATAR : DEFAULT_MALE_AVATAR),
+                codeforces: String(codeforces || 'coder'),
+                university: String(university || 'University'),
+                icpcParticipant: icpcParticipant === 'Yes' ? 'Yes' : 'No',
+                role: role === 'Instructor' ? 'Instructor' : 'Learner',
+                createdAt: createdAt
+            };
+        }
+
+        function mergeProfiles(remoteProfiles) {
+            if (!Array.isArray(remoteProfiles)) return;
+            
+            const remoteMap = new Map();
+            remoteProfiles.forEach(p => {
+                const normalized = normalizeProfile(p);
+                if (normalized) remoteMap.set(normalized.id, normalized);
+            });
+
+            // Keep any locally created profiles that are less than 15 seconds old (in transit to GAS)
+            const now = Date.now();
+            const pendingLocal = state.profiles.filter(p => {
+                if (p.createdAt) {
+                    const time = new Date(p.createdAt).getTime();
+                    if (!isNaN(time) && (now - time) < 15000 && !remoteMap.has(p.id)) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+
+            // Set state.profiles to Google Sheets state (source of truth) + pending local profiles
+            const updatedProfiles = Array.from(remoteMap.values());
+            pendingLocal.forEach(p => {
+                const normalized = normalizeProfile(p);
+                if (normalized && !remoteMap.has(normalized.id)) {
+                    updatedProfiles.unshift(normalized);
+                }
+            });
+
+            state.profiles = updatedProfiles;
+            localStorage.setItem('icpc27_profiles', JSON.stringify(state.profiles));
+        }
+
+        function mergeContests(remoteContests) {
+            if (!Array.isArray(remoteContests)) return;
+            
+            const remoteMap = new Map();
+            remoteContests.forEach(c => {
+                const cleanId = String(c.id || '').replace(/^'/, '').trim();
+                if (cleanId && cleanId !== 'undefined') {
+                    remoteMap.set(cleanId, {
+                        ...c,
+                        id: cleanId,
+                        name: String(c.name || 'Local Contest'),
+                        dateTime: c.dateTime || new Date().toISOString().slice(0, 16),
+                        participants: Array.isArray(c.participants) ? c.participants : []
+                    });
+                }
+            });
+
+            state.contests = Array.from(remoteMap.values());
+            localStorage.setItem('icpc27_contests', JSON.stringify(state.contests));
+        }
+
+        // Render Everything
+        function renderAll() {
+            renderProfiles();
+            renderContests();
+            updateStats();
+        }
+
+        // TAB SWITCHING LOGIC
+        function switchTab(tab) {
+            const tabs = ['directory', 'contests', 'register'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const btn = document.getElementById(`navTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                
+                if (t === tab) {
+                    el.classList.remove('hidden');
+                    btn.className = "px-3.5 py-1.5 rounded-lg font-medium transition-all duration-300 bg-icpc-blue text-white shadow-md btn-animate";
+                } else {
+                    el.classList.add('hidden');
+                    btn.className = "px-3.5 py-1.5 rounded-lg font-medium text-icpc-textMuted hover:text-white hover:bg-icpc-card transition-all duration-300 btn-animate";
+                }
+            });
+        }
+
+        // GENDER & AVATAR LOGIC
+        function toggleGenderAvatarLogic() {
+            const genderVal = document.querySelector('input[name="formGender"]:checked').value;
+            const avatarContainer = document.getElementById('avatarUploadContainer');
+            const femaleNotice = document.getElementById('femaleAvatarNotice');
+            const previewImg = document.getElementById('avatarPreviewImg');
+
+            if (genderVal === 'Female') {
+                avatarContainer.classList.add('hidden');
+                femaleNotice.classList.remove('hidden');
+                previewImg.src = DEFAULT_FEMALE_AVATAR;
+            } else {
+                avatarContainer.classList.remove('hidden');
+                femaleNotice.classList.add('hidden');
+                const fileInput = document.getElementById('formAvatarFile');
+                if (!fileInput.files || !fileInput.files[0]) {
+                    previewImg.src = DEFAULT_MALE_AVATAR;
+                }
+            }
+        }
+
+        function previewUploadedAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('avatarPreviewImg').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // PROFILE SUBMISSION & EDITING
+        async function handleProfileSubmit(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('formFullName').value.trim();
+            const gender = document.querySelector('input[name="formGender"]:checked').value;
+            const codeforces = document.getElementById('formCodeforces').value.trim();
+            const university = document.getElementById('formUniversity').value.trim();
+            const icpcParticipant = document.getElementById('formIcpcParticipant').value;
+            const role = document.getElementById('formRole').value;
+
+            let avatarUrl = gender === 'Female' ? DEFAULT_FEMALE_AVATAR : DEFAULT_MALE_AVATAR;
+
+            if (gender === 'Male') {
+                const fileInput = document.getElementById('formAvatarFile');
+                if (fileInput.files && fileInput.files[0]) {
+                    avatarUrl = await readFileAsBase64(fileInput.files[0]);
+                }
+            }
+
+            const newProfile = {
+                id: 'p-' + Date.now(),
+                fullName,
+                gender,
+                avatar: avatarUrl.length > 50000 ? DEFAULT_MALE_AVATAR : avatarUrl,
+                codeforces,
+                university,
+                icpcParticipant,
+                role,
+                createdAt: new Date().toISOString()
+            };
+
+            state.profiles.unshift(newProfile);
+            localStorage.setItem('icpc27_profiles', JSON.stringify(state.profiles));
+
+            renderAll();
+            showToast('Profile submitted successfully!', 'success');
+            document.getElementById('profileForm').reset();
+            toggleGenderAvatarLogic();
+            switchTab('directory');
+
+            // Sync to Google Sheets asynchronously
+            if (state.gasUrl) {
+                postToGAS({ action: 'saveProfile', data: newProfile });
+            }
+        }
+
+        function readFileAsBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // RENDER PROFILES DIRECTORY WITH STAGGERED CARDS
+        function renderProfiles() {
+            const grid = document.getElementById('profilesGrid');
+            const emptyMsg = document.getElementById('noProfilesMessage');
+            
+            if (state.isLoading && state.profiles.length === 0) {
+                emptyMsg.classList.add('hidden');
+                grid.innerHTML = [1, 2, 3].map(() => `
+                    <div class="glass-panel p-5 rounded-3xl border border-icpc-border animate-pulse flex flex-col justify-between h-48">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-16 h-16 rounded-2xl bg-icpc-border/60 shrink-0"></div>
+                            <div class="space-y-2 flex-grow">
+                                <div class="h-4 bg-icpc-border/80 rounded w-3/4"></div>
+                                <div class="h-3 bg-icpc-border/60 rounded w-1/2"></div>
+                                <div class="h-3 bg-icpc-border/40 rounded w-2/3"></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="h-6 w-20 bg-icpc-border/60 rounded-full"></div>
+                            <div class="h-6 w-16 bg-icpc-border/60 rounded-full"></div>
+                        </div>
+                    </div>
+                `).join('');
+                return;
+            }
+
+            const search = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+            const roleFilter = document.getElementById('filterRole').value;
+            const icpcFilter = document.getElementById('filterIcpc').value;
+            const genderFilter = document.getElementById('filterGender').value;
+
+            const filtered = state.profiles.filter(p => {
+                if (!p || !p.id) return false;
+                const fullName = String(p.fullName || '').toLowerCase();
+                const codeforces = String(p.codeforces || '').toLowerCase();
+                const university = String(p.university || '').toLowerCase();
+
+                const matchesSearch = fullName.includes(search) || 
+                                      codeforces.includes(search) || 
+                                      university.includes(search);
+                const matchesRole = roleFilter === 'ALL' || p.role === roleFilter;
+                const matchesIcpc = icpcFilter === 'ALL' || p.icpcParticipant === icpcFilter;
+                const matchesGender = genderFilter === 'ALL' || p.gender === genderFilter;
+
+                return matchesSearch && matchesRole && matchesIcpc && matchesGender;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+            grid.innerHTML = filtered.map((p, index) => `
+                <div class="glass-panel p-5 rounded-3xl border border-icpc-border hover:border-icpc-blue/50 transition-all duration-300 flex flex-col justify-between relative group hover:-translate-y-1.5 animate-card" style="animation-delay: ${index * 0.05}s">
+                    
+                    <!-- Admin Edit & Delete Quick Action Controls -->
+                    ${state.isAdmin ? `
+                        <div class="absolute top-4 right-4 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity z-10">
+                            <button onclick="openEditProfileModal('${p.id}')" title="Edit Profile" class="w-7 h-7 rounded-lg bg-icpc-blue/20 text-icpc-blue border border-icpc-blue/40 flex items-center justify-center hover:bg-icpc-blue hover:text-white transition-colors text-xs">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button onclick="deleteProfile('${p.id}')" title="Delete Profile" class="w-7 h-7 rounded-lg bg-red-500/20 text-red-400 border border-red-500/40 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors text-xs">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    ` : ''}
+
+                    <!-- Top Card Info -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="relative w-16 h-16 rounded-2xl bg-icpc-surface border border-icpc-border overflow-hidden shrink-0 group-hover:scale-105 transition-transform">
+                                <img src="${p.avatar || (p.gender === 'Female' ? DEFAULT_FEMALE_AVATAR : DEFAULT_MALE_AVATAR)}" alt="${p.fullName}" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base leading-snug">${p.fullName}</h3>
+                                <p class="text-xs font-mono text-icpc-blue flex items-center gap-1 mt-0.5">
+                                    <i class="fa-solid fa-code text-[11px]"></i>
+                                    <a href="https://codeforces.com/profile/${p.codeforces}" target="_blank" class="hover:underline font-semibold">@${p.codeforces}</a>
+                                </p>
+                                <p class="text-xs text-icpc-textMuted mt-0.5 flex items-center gap-1">
+                                    <i class="fa-solid fa-building-columns text-[10px]"></i> ${p.university}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Badges Row -->
+                        <div class="flex flex-wrap items-center gap-2 mb-3">
+                            <!-- Role Badge -->
+                            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${p.role === 'Instructor' ? 'badge-blue' : 'badge-green'}">
+                                ${p.role === 'Instructor' ? '<i class="fa-solid fa-chalkboard-user mr-1"></i> Instructor' : '<i class="fa-solid fa-graduation-cap mr-1"></i> Learner'}
+                            </span>
+
+                            <!-- ICPC Participant Badge -->
+                            ${p.icpcParticipant === 'Yes' ? `
+                                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full badge-yellow">
+                                    <i class="fa-solid fa-trophy mr-1"></i> ICPC '27
+                                </span>
+                            ` : `
+                                <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-icpc-card text-icpc-textMuted border border-icpc-border">
+                                    Non-ICPC
+                                </span>
+                            `}
+
+                            <!-- Gender Badge -->
+                            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-icpc-surface text-icpc-textMuted border border-icpc-border">
+                                ${p.gender === 'Male' ? '<i class="fa-solid fa-mars text-blue-400"></i>' : '<i class="fa-solid fa-venus text-pink-400"></i>'} ${p.gender}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Footer Link -->
+                    <div class="pt-3 border-t border-icpc-border/60 flex items-center justify-between text-xs text-icpc-textMuted">
+                        <span class="font-mono text-[11px]">CF Profile</span>
+                        <a href="https://codeforces.com/profile/${p.codeforces}" target="_blank" class="text-icpc-blue hover:text-white transition-colors flex items-center gap-1 font-semibold">
+                            View <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Delete Profile (Admin Only)
+        function deleteProfile(id) {
+            if (!state.isAdmin) return;
+            const p = state.profiles.find(x => x.id === id);
+            if (!confirm('Are you sure you want to delete this profile?')) return;
+
+            state.profiles = state.profiles.filter(x => x.id !== id);
+            localStorage.setItem('icpc27_profiles', JSON.stringify(state.profiles));
+
+            renderAll();
+            showToast('Profile deleted.', 'info');
+
+            if (state.gasUrl) {
+                postToGAS({
+                    action: 'deleteProfile',
+                    id: id,
+                    fullName: p ? p.fullName : '',
+                    codeforces: p ? p.codeforces : ''
+                });
+            }
+        }
+
+        // Open Edit Profile Modal
+        function openEditProfileModal(id) {
+            const p = state.profiles.find(x => x.id === id);
+            if (!p) return;
+
+            document.getElementById('editProfileId').value = p.id;
+            document.getElementById('editFullName').value = p.fullName;
+            document.getElementById('editGender').value = p.gender;
+            document.getElementById('editCodeforces').value = p.codeforces;
+            document.getElementById('editUniversity').value = p.university;
+            document.getElementById('editIcpc').value = p.icpcParticipant;
+            document.getElementById('editRole').value = p.role;
+
+            document.getElementById('modalEditProfile').classList.remove('hidden');
+        }
+
+        function handleUpdateProfile(e) {
+            e.preventDefault();
+
+            const id = document.getElementById('editProfileId').value;
+            const p = state.profiles.find(x => x.id === id);
+            if (!p) return;
+
+            const oldGender = p.gender;
+            const newGender = document.getElementById('editGender').value;
+
+            p.fullName = document.getElementById('editFullName').value.trim();
+            p.gender = newGender;
+            p.codeforces = document.getElementById('editCodeforces').value.trim();
+            p.university = document.getElementById('editUniversity').value.trim();
+            p.icpcParticipant = document.getElementById('editIcpc').value;
+            p.role = document.getElementById('editRole').value;
+
+            if (newGender === 'Female' && oldGender === 'Male') {
+                p.avatar = DEFAULT_FEMALE_AVATAR;
+            } else if (newGender === 'Male' && oldGender === 'Female') {
+                p.avatar = DEFAULT_MALE_AVATAR;
+            }
+
+            localStorage.setItem('icpc27_profiles', JSON.stringify(state.profiles));
+
+            renderAll();
+            showToast('Profile updated!', 'success');
+            closeModal('modalEditProfile');
+
+            if (state.gasUrl) {
+                postToGAS({ action: 'saveProfile', data: p });
+            }
+        }
+
+        // LOCAL CONTESTS LOGIC
+        function filterContestsTab(filter) {
+            state.activeContestFilter = filter;
+            ['all', 'upcoming', 'past'].forEach(f => {
+                const btn = document.getElementById(`contestTab${f.charAt(0).toUpperCase() + f.slice(1)}`);
+                if (f === filter) {
+                    btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-icpc-blue text-white btn-animate";
+                } else {
+                    btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-icpc-card text-icpc-textMuted hover:text-white btn-animate";
+                }
+            });
+            renderContests();
+        }
+
+        function renderContests() {
+            const grid = document.getElementById('contestsGrid');
+            const emptyMsg = document.getElementById('noContestsMessage');
+            const now = new Date();
+
+            if (state.isLoading && state.contests.length === 0) {
+                emptyMsg.classList.add('hidden');
+                grid.innerHTML = [1, 2].map(() => `
+                    <div class="glass-panel p-6 rounded-3xl border border-icpc-border animate-pulse h-48 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="h-4 bg-icpc-border/80 rounded w-1/3"></div>
+                            <div class="h-6 bg-icpc-border/90 rounded w-3/4"></div>
+                            <div class="h-3 bg-icpc-border/60 rounded w-1/2"></div>
+                        </div>
+                    </div>
+                `).join('');
+                return;
+            }
+
+            const filtered = state.contests.filter(c => {
+                const contestDate = new Date(c.dateTime);
+                if (state.activeContestFilter === 'upcoming') return contestDate > now;
+                if (state.activeContestFilter === 'past') return contestDate <= now;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+            grid.innerHTML = filtered.map((c, index) => {
+                const contestDate = new Date(c.dateTime);
+                const isComingSoon = contestDate > now;
+
+                return `
+                    <div class="glass-panel p-6 rounded-3xl border border-icpc-border hover:border-icpc-yellow/40 transition-all relative group flex flex-col justify-between animate-card" style="animation-delay: ${index * 0.08}s">
+                        
+                        <!-- Admin Contest Controls -->
+                        ${state.isAdmin ? `
+                            <div class="absolute top-4 right-4 flex items-center gap-1.5">
+                                <button onclick="openEditContestModal('${c.id}')" class="w-7 h-7 rounded-lg bg-icpc-yellow/20 text-icpc-yellow border border-icpc-yellow/40 flex items-center justify-center hover:bg-icpc-yellow hover:text-black transition-colors text-xs">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button onclick="deleteContest('${c.id}')" class="w-7 h-7 rounded-lg bg-red-500/20 text-red-400 border border-red-500/40 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors text-xs">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        ` : ''}
+
+                        <div>
+                            <!-- Badge Header -->
+                            <div class="flex items-center gap-2 mb-3">
+                                ${isComingSoon ? `
+                                    <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/40 animate-pulse flex items-center gap-1.5">
+                                        <i class="fa-solid fa-clock"></i> COMING SOON
+                                    </span>
+                                ` : `
+                                    <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-circle-check"></i> COMPLETED
+                                    </span>
+                                `}
+                            </div>
+
+                            <h3 class="text-xl font-bold text-white mb-2 leading-snug">${c.name}</h3>
+                            
+                            <p class="text-xs text-icpc-textMuted flex items-center gap-2 mb-4 font-mono">
+                                <i class="fa-solid fa-calendar-days text-icpc-blue"></i>
+                                <span>${new Date(c.dateTime).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                            </p>
+
+                            <!-- Live Countdown for Coming Soon -->
+                            ${isComingSoon ? `
+                                <div class="p-3 rounded-2xl bg-icpc-card border border-icpc-border text-center mb-4">
+                                    <p class="text-[11px] uppercase tracking-wider text-icpc-textMuted font-bold mb-1">Starts In</p>
+                                    <div data-countdown="${c.dateTime}" class="countdown-display font-mono text-lg font-bold text-icpc-yellow">
+                                        Calculating...
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            <!-- Participants Ranks / Leaderboard -->
+                            <div class="mt-4">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-icpc-textMuted mb-2 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-list-ol text-icpc-yellow"></i> Standings (${c.participants ? c.participants.length : 0})
+                                </h4>
+
+                                ${c.participants && c.participants.length > 0 ? `
+                                    <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                                        ${c.participants.sort((a,b) => a.rank - b.rank).map(p => `
+                                            <div class="flex items-center justify-between p-2 rounded-xl bg-icpc-surface/70 border border-icpc-border/60 text-xs">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-[11px] ${
+                                                        p.rank === 1 ? 'bg-amber-400 text-black shadow-sm' : 
+                                                        p.rank === 2 ? 'bg-slate-300 text-black shadow-sm' : 
+                                                        p.rank === 3 ? 'bg-amber-700 text-white shadow-sm' : 'bg-icpc-card text-icpc-textMuted'
+                                                    }">${p.rank}</span>
+                                                    <span class="font-semibold text-white">${p.name}</span>
+                                                </div>
+                                                <span class="font-mono text-icpc-blue">@${p.handle}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : `
+                                    <p class="text-xs text-icpc-textMuted italic">No participants logged yet.</p>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateCountdowns();
+        }
+
+        // Live Countdown Updater
+        function updateCountdowns() {
+            document.querySelectorAll('.countdown-display').forEach(el => {
+                const targetStr = el.getAttribute('data-countdown');
+                if (!targetStr) return;
+                
+                const target = new Date(targetStr).getTime();
+                const now = new Date().getTime();
+                const diff = target - now;
+
+                if (diff <= 0) {
+                    el.innerText = "Contest Starting / In Progress!";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                el.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            });
+        }
+
+        // Admin Contest Management
+        function openCreateContestModal() {
+            document.getElementById('contestEditId').value = '';
+            document.getElementById('contestModalTitle').innerHTML = '<i class="fa-solid fa-trophy text-icpc-yellow"></i> Add Local Contest';
+            document.getElementById('contestFormName').value = '';
+            document.getElementById('contestFormDateTime').value = new Date().toISOString().slice(0, 16);
+            document.getElementById('participantRowsContainer').innerHTML = '';
+            addParticipantRow();
+            document.getElementById('modalContest').classList.remove('hidden');
+        }
+
+        function openEditContestModal(id) {
+            const c = state.contests.find(x => x.id === id);
+            if (!c) return;
+
+            document.getElementById('contestEditId').value = c.id;
+            document.getElementById('contestModalTitle').innerHTML = '<i class="fa-solid fa-pen text-icpc-yellow"></i> Edit Local Contest';
+            document.getElementById('contestFormName').value = c.name;
+            document.getElementById('contestFormDateTime').value = c.dateTime;
+            
+            const container = document.getElementById('participantRowsContainer');
+            container.innerHTML = '';
+
+            if (c.participants && c.participants.length > 0) {
+                c.participants.forEach(p => addParticipantRow(p.name, p.handle, p.rank));
+            } else {
+                addParticipantRow();
+            }
+
+            document.getElementById('modalContest').classList.remove('hidden');
+        }
+
+        function addParticipantRow(name = '', handle = '', rank = '') {
+            const container = document.getElementById('participantRowsContainer');
+            const rowId = 'prow-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
+
+            const div = document.createElement('div');
+            div.id = rowId;
+            div.className = "flex items-center gap-2 bg-icpc-surface p-2 rounded-xl border border-icpc-border";
+            div.innerHTML = `
+                <input type="number" placeholder="Rank" value="${rank}" required min="1" class="w-16 px-2 py-1.5 rounded-lg glass-input text-white text-xs font-mono text-center">
+                <input type="text" placeholder="Name" value="${name}" required class="flex-grow px-2 py-1.5 rounded-lg glass-input text-white text-xs">
+                <input type="text" placeholder="CF Handle" value="${handle}" required class="w-28 px-2 py-1.5 rounded-lg glass-input text-white text-xs font-mono">
+                <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-red-400 hover:text-red-300 px-1.5 text-xs">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
+        function handleSaveContest(e) {
+            e.preventDefault();
+
+            const editId = document.getElementById('contestEditId').value;
+            const name = document.getElementById('contestFormName').value.trim();
+            const dateTime = document.getElementById('contestFormDateTime').value;
+
+            const participantRows = document.querySelectorAll('#participantRowsContainer > div');
+            const participants = [];
+
+            participantRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const rank = parseInt(inputs[0].value) || 1;
+                const pName = inputs[1].value.trim();
+                const handle = inputs[2].value.trim();
+                if (pName && handle) {
+                    participants.push({ name: pName, handle: handle, rank: rank });
+                }
+            });
+
+            if (editId) {
+                const c = state.contests.find(x => x.id === editId);
+                if (c) {
+                    c.name = name;
+                    c.dateTime = dateTime;
+                    c.participants = participants;
+                }
+            } else {
+                const newContest = {
+                    id: 'c-' + Date.now(),
+                    name,
+                    dateTime,
+                    participants
+                };
+                state.contests.unshift(newContest);
+            }
+
+            localStorage.setItem('icpc27_contests', JSON.stringify(state.contests));
+
+            renderAll();
+            showToast('Local contest saved!', 'success');
+            closeModal('modalContest');
+
+            if (state.gasUrl) {
+                const contestObj = editId ? state.contests.find(x => x.id === editId) : state.contests[0];
+                postToGAS({ action: 'saveContest', data: contestObj });
+            }
+        }
+
+        function deleteContest(id) {
+            if (!state.isAdmin) return;
+            const c = state.contests.find(x => x.id === id);
+            if (!confirm('Are you sure you want to delete this contest?')) return;
+
+            state.contests = state.contests.filter(x => x.id !== id);
+            localStorage.setItem('icpc27_contests', JSON.stringify(state.contests));
+
+            renderAll();
+            showToast('Contest deleted.', 'info');
+
+            if (state.gasUrl) {
+                postToGAS({
+                    action: 'deleteContest',
+                    id: id,
+                    name: c ? c.name : ''
+                });
+            }
+        }
+
+        // ================= ADMIN AUTHENTICATION =================
+        function openAdminModal() {
+            if (state.isAdmin) {
+                logoutAdmin();
+            } else {
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('modalAdmin').classList.remove('hidden');
+            }
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pwd = document.getElementById('adminPasswordInput').value.trim();
+            
+            if (pwd === '12304561') {
+                state.isAdmin = true;
+                closeModal('modalAdmin');
+                updateAdminStateUI();
+                showToast('Welcome Admin! Privileges unlocked.', 'success');
+            } else {
+                showToast('Incorrect password. Try again.', 'error');
+            }
+        }
+
+        function logoutAdmin() {
+            state.isAdmin = false;
+            updateAdminStateUI();
+            showToast('Logged out of Admin Mode.', 'info');
+        }
+
+        function updateAdminStateUI() {
+            const btnText = document.getElementById('adminAuthBtnText');
+            const adminBanner = document.getElementById('adminBanner');
+
+            if (state.isAdmin) {
+                btnText.innerText = 'Admin Active (Logout)';
+                adminBanner.classList.remove('hidden');
+            } else {
+                btnText.innerText = 'Admin Login';
+                adminBanner.classList.add('hidden');
+            }
+            renderAll();
+        }
+
+        // POST TO GOOGLE APPS SCRIPT HELPER
+        async function postToGAS(payload) {
+            if (!state.gasUrl) return;
+            try {
+                await fetch(state.gasUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("GAS Post Error:", err);
+            }
+        }
+
+        // STATS & UTILS
+        function updateStats() {
+            document.getElementById('statTotalMembers').innerText = state.profiles.length;
+            document.getElementById('statInstructors').innerText = state.profiles.filter(p => p.role === 'Instructor').length;
+            document.getElementById('statLearners').innerText = state.profiles.filter(p => p.role === 'Learner').length;
+            document.getElementById('statIcpc').innerText = state.profiles.filter(p => p.icpcParticipant === 'Yes').length;
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+
+            const bgColors = {
+                success: 'bg-emerald-500/90 text-white border-emerald-400',
+                error: 'bg-red-500/90 text-white border-red-400',
+                warning: 'bg-amber-500/90 text-white border-amber-400',
+                info: 'bg-icpc-blue/90 text-white border-blue-400'
+            };
+
+            const icons = {
+                success: 'fa-circle-check',
+                error: 'fa-circle-xmark',
+                warning: 'fa-triangle-exclamation',
+                info: 'fa-circle-info'
+            };
+
+            toast.className = `pointer-events-auto px-4 py-3 rounded-2xl backdrop-blur-md border shadow-2xl flex items-center gap-2.5 text-xs font-semibold transition-all duration-300 transform translate-y-2 opacity-0 ${bgColors[type] || bgColors.info}`;
+            toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info} text-sm"></i> <span>${msg}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
