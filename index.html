@@ -298,12 +298,66 @@
             <p class="text-lg sm:text-xl font-mono text-icpc-yellow tracking-widest font-semibold uppercase mb-4">
                 — 2 0 2 7 —
             </p>
-            <div class="flex items-center justify-center gap-3 text-sm font-mono text-icpc-textMuted">
+            <div class="flex items-center justify-center gap-3 text-sm font-mono text-icpc-textMuted mb-6">
                 <span class="px-3.5 py-1 rounded-full bg-icpc-card border border-icpc-border text-icpc-blue font-bold shadow-sm">THINK</span>
                 <span class="text-icpc-textMuted/60">/</span>
                 <span class="px-3.5 py-1 rounded-full bg-icpc-card border border-icpc-border text-white font-bold shadow-sm">CODE</span>
                 <span class="text-icpc-textMuted/60">/</span>
                 <span class="px-3.5 py-1 rounded-full bg-icpc-card border border-icpc-border text-icpc-yellow font-bold shadow-sm">SOLVE</span>
+            </div>
+        </section>
+
+        <!-- UPCOMING CONTEST LIVE COUNTDOWN BANNER WIDGET -->
+        <section id="heroCountdownSection" class="mb-8 animate-fade-in">
+            <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-icpc-yellow/40 bg-gradient-to-r from-icpc-card via-icpc-surface to-icpc-card relative overflow-hidden shadow-2xl">
+                <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-icpc-yellow/10 blur-2xl pointer-events-none"></div>
+                <div class="absolute -left-10 -top-10 w-44 h-44 rounded-full bg-icpc-blue/10 blur-2xl pointer-events-none"></div>
+                
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                    <!-- Left Info -->
+                    <div class="text-center md:text-left space-y-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-icpc-yellow/20 text-icpc-yellow border border-icpc-yellow/40 text-xs font-bold animate-pulse">
+                            <i class="fa-solid fa-fire text-amber-400"></i> NEXT UPCOMING CONTEST
+                        </div>
+                        <h2 id="heroContestTitle" class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                            Loading upcoming contest...
+                        </h2>
+                        <p id="heroContestDate" class="text-xs sm:text-sm text-icpc-textMuted font-mono flex items-center justify-center md:justify-start gap-2">
+                            <i class="fa-solid fa-calendar-day text-icpc-blue"></i>
+                            <span>Schedule...</span>
+                        </p>
+                    </div>
+
+                    <!-- Center Digital Countdown Boxes -->
+                    <div class="flex items-center justify-center gap-2 sm:gap-3 font-mono">
+                        <div class="flex flex-col items-center bg-icpc-surface/90 border border-icpc-border p-2.5 sm:p-3 rounded-2xl min-w-[64px] sm:min-w-[72px] shadow-inner">
+                            <span id="cdDays" class="text-2xl sm:text-3xl font-extrabold text-icpc-yellow">00</span>
+                            <span class="text-[10px] uppercase font-bold text-icpc-textMuted tracking-wider mt-0.5">Days</span>
+                        </div>
+                        <span class="text-xl sm:text-2xl font-bold text-icpc-yellow mb-4">:</span>
+                        <div class="flex flex-col items-center bg-icpc-surface/90 border border-icpc-border p-2.5 sm:p-3 rounded-2xl min-w-[64px] sm:min-w-[72px] shadow-inner">
+                            <span id="cdHours" class="text-2xl sm:text-3xl font-extrabold text-white">00</span>
+                            <span class="text-[10px] uppercase font-bold text-icpc-textMuted tracking-wider mt-0.5">Hours</span>
+                        </div>
+                        <span class="text-xl sm:text-2xl font-bold text-icpc-yellow mb-4">:</span>
+                        <div class="flex flex-col items-center bg-icpc-surface/90 border border-icpc-border p-2.5 sm:p-3 rounded-2xl min-w-[64px] sm:min-w-[72px] shadow-inner">
+                            <span id="cdMinutes" class="text-2xl sm:text-3xl font-extrabold text-white">00</span>
+                            <span class="text-[10px] uppercase font-bold text-icpc-textMuted tracking-wider mt-0.5">Mins</span>
+                        </div>
+                        <span class="text-xl sm:text-2xl font-bold text-icpc-yellow mb-4">:</span>
+                        <div class="flex flex-col items-center bg-icpc-surface/90 border border-icpc-border p-2.5 sm:p-3 rounded-2xl min-w-[64px] sm:min-w-[72px] shadow-inner">
+                            <span id="cdSeconds" class="text-2xl sm:text-3xl font-extrabold text-icpc-blue">00</span>
+                            <span class="text-[10px] uppercase font-bold text-icpc-textMuted tracking-wider mt-0.5">Secs</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Action Button -->
+                    <div class="shrink-0">
+                        <button onclick="switchTab('contests')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-icpc-yellow to-amber-500 text-black font-extrabold text-xs sm:text-sm hover:from-yellow-400 hover:to-amber-400 transition-all shadow-lg shadow-icpc-yellow/20 flex items-center gap-2 btn-animate">
+                            <i class="fa-solid fa-trophy"></i> View Standings
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1390,12 +1444,52 @@
 
         // Live Countdown Updater
         function updateCountdowns() {
+            const now = new Date().getTime();
+
+            // 1. Calculate next upcoming contest for Homepage Hero Widget
+            const upcomingContests = state.contests
+                .filter(c => c.dateTime && new Date(c.dateTime).getTime() > now)
+                .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
+
+            const heroTitle = document.getElementById('heroContestTitle');
+            const heroDate = document.getElementById('heroContestDate');
+            const heroDays = document.getElementById('cdDays');
+            const heroHours = document.getElementById('cdHours');
+            const heroMins = document.getElementById('cdMinutes');
+            const heroSecs = document.getElementById('cdSeconds');
+
+            if (upcomingContests.length > 0) {
+                const nextContest = upcomingContests[0];
+                const targetTime = new Date(nextContest.dateTime).getTime();
+                const diff = Math.max(0, targetTime - now);
+
+                if (heroTitle) heroTitle.innerText = nextContest.name;
+                if (heroDate) heroDate.innerHTML = `<i class="fa-solid fa-calendar-day text-icpc-blue"></i> ${new Date(nextContest.dateTime).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                if (heroDays) heroDays.innerText = String(days).padStart(2, '0');
+                if (heroHours) heroHours.innerText = String(hours).padStart(2, '0');
+                if (heroMins) heroMins.innerText = String(minutes).padStart(2, '0');
+                if (heroSecs) heroSecs.innerText = String(seconds).padStart(2, '0');
+            } else {
+                if (heroTitle) heroTitle.innerText = "No Upcoming Contests Scheduled";
+                if (heroDate) heroDate.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Check back soon for new local rounds!`;
+                if (heroDays) heroDays.innerText = "00";
+                if (heroHours) heroHours.innerText = "00";
+                if (heroMins) heroMins.innerText = "00";
+                if (heroSecs) heroSecs.innerText = "00";
+            }
+
+            // 2. Also update individual contest card countdown displays
             document.querySelectorAll('.countdown-display').forEach(el => {
                 const targetStr = el.getAttribute('data-countdown');
                 if (!targetStr) return;
                 
                 const target = new Date(targetStr).getTime();
-                const now = new Date().getTime();
                 const diff = target - now;
 
                 if (diff <= 0) {
